@@ -1,6 +1,11 @@
 # Homework
 
 actualy a test
+✔ autentificare
+✔ CRUD
+✔ stored procedures
+✔ flags
+✔ show/hide the tree branches (departments/employes)
 
 ## Installation
 in folderul /config se gaseste si exportul bazei de date
