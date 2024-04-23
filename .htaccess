@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+Options -Indexes
+#Options +FollowSymlinks
+## Mod_rewrite in use.
+RewriteEngine On
+
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+#RewriteRule ^ https://www.%1%{REQUEST_URI} [L,NE,R=301]
+
+ErrorDocument 410 http://localhost/homework/404
+ErrorDocument 404 http://localhost/homework/404
+RewriteRule ^404$ index.php?view=f_404 [NC,L]
+
+
+</IfModule>
