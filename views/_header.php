@@ -42,10 +42,10 @@
 							</li>
 						<?php else: ?>
 							<li class="nav-item">
-								<a class="btn btn-outline-dark" href="#" data-bs-toggle="modal" data-bs-target="#loginUserModal">Intră în cont</a>
+								<a class="btn btn-outline-dark" href="<?php echo $baseFunctions->buildUrl(array('view'=>'b_acc_login')); ?>">Intră în cont</a>
 							</li>
 							<li class="nav-item">
-								<a class="btn btn-dark" href="#" data-bs-toggle="modal" data-bs-target="#registerUserModal">Creează cont</a>
+								<a class="btn btn-dark" href="<?php echo $baseFunctions->buildUrl(array('view'=>'b_acc_register')); ?>">Creează cont</a>
 							</li>
 						<?php endif ?>
 					</ul>

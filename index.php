@@ -13,7 +13,7 @@ if ( !empty($baseFunctions->redirect) ) {
     exit();
 }
 
-if (!$baseFunctions->user_is_logged_in) {
+if (!$baseFunctions->user_is_logged_in&&$view!="b_acc_register") {
     $view = "b_acc_login";
 }
 

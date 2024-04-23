@@ -9,12 +9,6 @@
 
 			<?php include_once('views/_messages.php'); ?>
 
-			<div>
-				<pre>
-					<?php print_r($baseFunctions->rep['user']) ?>
-				</pre>
-			</div>
-
 			<div class="card card-form">
 				<div class="card-body">
 					<form action="" method="post" class="needs-validation" novalidate>

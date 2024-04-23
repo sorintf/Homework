@@ -8,12 +8,6 @@
 			<h1 class="section-title">Register email confirm</h1>
 
 			<?php include_once('views/_messages.php'); ?>
-
-			<div>
-				<pre>
-					<?php print_r($baseFunctions->rep['user']) ?>
-				</pre>
-			</div>
 		</div>
 	</div>
 

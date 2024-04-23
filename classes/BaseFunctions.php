@@ -46,17 +46,6 @@ class BaseFunctions
 
         if ($this->view=='b_acc_logout') {
 
-            if ($this->user_is_logged_in) {
-                // code...
-                $args = array();
-                $args['id_user'] = $this->ID;
-                $args['target_table'] = "users";
-                $args['id_target'] = $this->ID;
-                $args['note'] = "User logged out. (base)";
-                $this->logAction($args);
-            }
-
-
             $this->doLogout();
             $this->redirect = $this->buildUrl(array('view'=>"f_index"));
         }
