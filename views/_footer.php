@@ -37,8 +37,10 @@
 						event.preventDefault();
 						event.stopPropagation();
 
-						if (form.id === 'ajaxLoginUserForm') {
-							var ajxusr = $("#ajxusr").val();
+						if (form.id === 'deleteDeptForm') {
+							$(this) = form;
+							console.log('deleteDeptForm', form);
+							/*var id_dept = $("#ajxusr").val();
 							var ajxpwd = $("#ajxpwd").val();
 
 							$.ajax({
@@ -60,33 +62,7 @@
 										$("#ajaxLoginUserFormMsg").html(alert_div);
 									}
 								}
-							});
-						}
-
-						if (form.id === 'ajaxRegisterUserForm') {
-							var ajxregusremail = $("#regusr-email").val();
-							var ajxregusrpassword = $("#regusr-password").val();
-							var ajxregusracctc = $("#regusr-acc_tc").val();
-
-							$.ajax({
-								type:'post',
-								url:'<?php echo BASE_URL; ?>/ajax.php',
-								data:{
-									registerUser: true,
-									ajxregusremail: ajxregusremail,
-									ajxregusrpassword: ajxregusrpassword,
-									ajxregusracctc: ajxregusracctc
-								},
-								success:function(response) {
-									var responseObj = JSON.parse(response);
-									if(responseObj.success){
-										$("#ajaxRegisterUserFormMsg").html('<div class="alert alert-success alert-dismissible fade show" role="alert"><h1>Contul a fost creat cu succes.</h1><p>Un email pentru confirmare adresei de email a fost trimis la: "'+responseObj.email+'". Urmareste indicatiile din mesaj pentru a finaliza crearea contului.</p><p>Daca nu ai primit emailul (nici in junk/spam) apasa <a href="'+responseObj.url+'">aici</a> pentru a-l retrimite</p><p><a href="'+responseObj.msg+'">click</a></p><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-										$("#ajaxRegisterUserForm").hide();
-									}else{
-										$("#ajaxRegisterUserFormMsg").html('<div class="alert alert-danger alert-dismissible fade show" role="alert">' + responseObj.msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-									}
-								}
-							});
+							});*/
 						}
 					}
 				}, false)
@@ -98,13 +74,13 @@
         $(document).ready(function() {
             $(".tree-toggler").on('click', function(){
             	var typeOfSwitching = $("#switchingBranches").prop('checked');
-            	console.log('typeOfSwitching', typeOfSwitching);
+            	// console.log('typeOfSwitching', typeOfSwitching);
             	if (typeOfSwitching){
             		if ($(this).hasClass('noshow')) {
-            			console.log('should removeClass noshow from children');
+            			// console.log('should removeClass noshow from children');
             			$(this).parent().find('.tree-toggler').removeClass('noshow');
             		} else {
-            			console.log('should addClass noshow to children');
+            			// console.log('should addClass noshow to children');
             			$(this).parent().find('.tree-toggler').addClass('noshow');
             		}
             	}else{

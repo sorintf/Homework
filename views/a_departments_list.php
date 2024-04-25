@@ -28,16 +28,26 @@
 						<?php foreach ($baseFunctions->rep['departments_list'] as $dept): ?>
 							<tr class="">
 								<td><?php echo $dept['ID']; ?></td>
-								<td><a href="<?php echo $baseFunctions->buildUrl(array('view'=>'a_departments_edit', 'id_department'=>$dept['ID'])); ?>" class=""><?php echo $dept['name']; ?></a></td>
+								<td>
+									<?php if (($dept['features']&2) > 0): ?>
+										<?php echo $dept['name']; ?>
+									<?php else: ?>
+										<a href="<?php echo $baseFunctions->buildUrl(array('view'=>'a_departments_edit', 'id_department'=>$dept['ID'])); ?>" class=""><?php echo $dept['name']; ?></a>
+									<?php endif ?>
+								</td>
 								<td><?php echo $dept['features']; ?></td>
 								<td><?php echo (($dept['features']&1) > 0)?'Public':'Privat'; ?></td>
 								<td><?php echo (($dept['features']&2) > 0)?'Da':'Nu'; ?></td>
 								<td><?php echo (!empty($dept['parent_name']))?$dept['parent_name']:'Top dept'; ?></td>
 								<td class="w-auto">
-									<form class="needs-validation d-inline" id="deleteDeptForm" action="" method="post" novalidate>
-										<input type="hidden" name="id_department" value="<?php echo $dept['ID']; ?>">
-										<button type="submit" name="deleteDepartment" class="btn btn-danger"><svg width="16" height="16" role="img" aria-label="Danger:"><use xlink:href="#icon-trash"/></svg></button>
-									</form>
+									<?php if (($dept['features']&2) > 0): ?>
+										
+									<?php else: ?>
+										<form class="needs-validation d-inline" id="deleteDeptForm" action="" method="post" novalidate>
+											<input type="hidden" name="id_department" value="<?php echo $dept['ID']; ?>">
+											<button type="submit" name="deleteDepartment" class="btn btn-danger"><svg width="16" height="16" role="img" aria-label="Danger:"><use xlink:href="#icon-trash"/></svg></button>
+										</form>
+									<?php endif ?>
 								</td>
 							</tr>
 						<?php endforeach ?>

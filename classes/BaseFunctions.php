@@ -271,7 +271,7 @@ class BaseFunctions
             $r = $q->rowCount();
             
             if ($r>0) {
-                setcookie('rememberme', $cookie_string, (time()+COOKIE_RUNTIME), '/', COOKIE_DOMAIN);
+                setcookie('rememberme', $cookie_string, (time()+COOKIE_RUNTIME), '/', COOKIE_DOMAIN, true, true);
                 return true;
             }
         }
@@ -403,23 +403,6 @@ class BaseFunctions
 
     protected function getUserById( $id_user ) {
 
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE get_user_by_id(
-                    IN in_id_user int, 
-                    IN in_hash varchar(16)
-                )
-                BEGIN
-                    SELECT *, AES_DECRYPT(email, in_hash) AS email_user 
-                FROM users 
-                WHERE 
-                    ID=in_id_user;
-                END //
-                DELIMITER ;
-            */
-
-
         if ($this->databaseConnection()) {
             $q = $this->db_connection->prepare("CALL get_user_by_id(:id_user, :hash)");
             $db_secret = DB_SECRET;
@@ -433,23 +416,6 @@ class BaseFunctions
         return false;
     }
     protected function getUserByEmail( $email ) {
-
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE get_user_by_email(
-                    IN in_email varchar(256), 
-                    IN in_hash varchar(16)
-                )
-                BEGIN
-                    SELECT *, AES_DECRYPT(email, in_hash) AS email_user 
-                FROM users 
-                WHERE 
-                    AES_DECRYPT(email, in_hash)=in_email;
-                END //
-                DELIMITER ;
-            */
-
 
         if ($this->databaseConnection()) {
             $q = $this->db_connection->prepare("CALL get_user_by_email(:email, :hash)");
@@ -465,22 +431,6 @@ class BaseFunctions
     }
     protected function getUserByTokenValidareEmail( $token_validare_email ) {
 
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE get_user_by_tve(
-                    IN in_tve varchar(64), 
-                    IN in_hash varchar(16)
-                )
-                BEGIN
-                    SELECT *, AES_DECRYPT(email, in_hash) AS email_user 
-                FROM users 
-                WHERE 
-                    token_validare_email=in_tve;
-                END //
-                DELIMITER ;
-            */
-
         if ($this->databaseConnection()) {
             $q = $this->db_connection->prepare("CALL get_user_by_tve(:token_validare_email, :hash)");
             $db_secret = DB_SECRET;
@@ -495,22 +445,6 @@ class BaseFunctions
     }
     protected function getUserByTokenResetareParola( $token_resetare_parola ) {
 
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE get_user_by_trp(
-                    IN in_trp varchar(64), 
-                    IN in_hash varchar(16)
-                )
-                BEGIN
-                    SELECT *, AES_DECRYPT(email, in_hash) AS email_user 
-                FROM users 
-                WHERE 
-                    token_resetare_parola=in_trp;
-                END //
-                DELIMITER ;
-            */
-
         if ($this->databaseConnection()) {
             $q = $this->db_connection->prepare("CALL get_user_by_trp(:token_resetare_parola, :hash)");
             $db_secret = DB_SECRET;
@@ -524,24 +458,6 @@ class BaseFunctions
         return false;
     }
     protected function getUserByTokenRememberme( $id_user, $token_rememberme ) {
-
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE get_user_by_trm(
-                    IN in_id_user int, 
-                    IN in_trm varchar(64), 
-                    IN in_hash varchar(16)
-                )
-                BEGIN
-                    SELECT *, AES_DECRYPT(email, in_hash) AS email_user 
-                FROM users 
-                WHERE 
-                    token_rememberme=in_trm
-                    AND ID=in_id_user;
-                END //
-                DELIMITER ;
-            */
 
         if ($this->databaseConnection()) {
             $q = $this->db_connection->prepare("CALL get_user_by_trm(:id_user, :token_rememberme, :hash)");
@@ -609,40 +525,6 @@ class BaseFunctions
         if ($this->databaseConnection()) {
             /* generate unique token for email account validation */
             $token_validare_email = $this->generateTokenValidareEmail();
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE insert_user(
-                    IN in_password varchar(64),
-                    IN in_email varchar(256),
-                    IN in_hash varchar(16),
-                    IN in_token_validare_email varchar(64)
-                )
-                BEGIN
-                    INSERT INTO users(password,status,token_validare_email,email,created_time) VALUES(in_password,1,in_token_validare_email,AES_ENCRYPT(in_email,in_hash),NOW());
-                END //
-                DELIMITER ;
-            */
-
-            /*echo '<br>user_password_hash: ';
-            echo $user_password_hash;
-            echo '<br>email: ';
-            echo $email;
-            echo '<br>DB_SECRET: ';
-            echo DB_SECRET;
-            echo '<br>token_validare_email: ';
-            echo $token_validare_email;
-            user_password_hash: $2y$10$lOZx8zijszfXpPkVyYkMhO.7lmrqYIJISCyZ2cURhcUdivojDvlei
-            : emailsorinionut.dan@gmail.com
-            DB_SECRET: h4Rm0n!a
-            token_validare_email: 6a96b2898c69b9729929864e2e322c7eb7292018
-
-            exit();*/
-
-
-            /*
-                CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_user`(IN `in_password` VARCHAR(64), IN `in_email` VARCHAR(256), IN `in_hash` VARCHAR(16), IN `in_token_validare_email` VARCHAR(64)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN INSERT INTO users(password,status,token_validare_email,email,created_time) VALUES(in_password,1,in_token_validare_email,AES_ENCRYPT(in_email,in_hash),NOW()); END
-            */
 
             $q = $this->db_connection->prepare("CALL insert_user(:password, :email, :hash, :token_validare_email)");
             $db_secret = DB_SECRET;
@@ -712,33 +594,6 @@ class BaseFunctions
         $status = 3;
 
         if ($this->databaseConnection()) {
-
-
-            /*
-                DELIMITER //
-                CREATE PROCEDURE update_user_status(
-                    IN in_id_user int, 
-                    IN in_status int
-                )
-                BEGIN
-                    UPDATE
-                        `users`
-                    SET
-                        `status`=in_status
-                    WHERE
-                        ID=in_id_user;
-                END //
-                DELIMITER ;
-            */
-
-
-            /*$q = $this->db_connection->prepare("
-                UPDATE `users` 
-                SET 
-                    `status`=:status
-                WHERE 
-                    `ID`=:ID
-            ");*/
 
             $q = $this->db_connection->prepare("CALL update_user_status(:id_user, :status)");
             $q->bindValue(":id_user", $checkUser->ID, PDO::PARAM_INT);

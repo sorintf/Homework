@@ -40,13 +40,6 @@
 									<li><a class="dropdown-item" href="<?php echo $baseFunctions->buildUrl(array('view'=>"b_acc_logout")); ?>">Logout</a></li>
 								</ul>
 							</li>
-						<?php else: ?>
-							<li class="nav-item">
-								<a class="btn btn-outline-dark" href="<?php echo $baseFunctions->buildUrl(array('view'=>'b_acc_login')); ?>">Intră în cont</a>
-							</li>
-							<li class="nav-item">
-								<a class="btn btn-dark" href="<?php echo $baseFunctions->buildUrl(array('view'=>'b_acc_register')); ?>">Creează cont</a>
-							</li>
 						<?php endif ?>
 					</ul>
 				</div>
