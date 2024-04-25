@@ -18,6 +18,8 @@
 							<th scope="col">#</th>
 							<th scope="col">Departament</th>
 							<th scope="col">Flag</th>
+							<th scope="col">Public/Privat</th>
+							<th scope="col">Sters</th>
 							<th scope="col">Departament parinte</th>
 							<th scope="col">&nbsp;</th>
 						</tr>
@@ -28,6 +30,8 @@
 								<td><?php echo $dept['ID']; ?></td>
 								<td><a href="<?php echo $baseFunctions->buildUrl(array('view'=>'a_departments_edit', 'id_department'=>$dept['ID'])); ?>" class=""><?php echo $dept['name']; ?></a></td>
 								<td><?php echo $dept['features']; ?></td>
+								<td><?php echo (($dept['features']&1) > 0)?'Public':'Privat'; ?></td>
+								<td><?php echo (($dept['features']&2) > 0)?'Da':'Nu'; ?></td>
 								<td><?php echo (!empty($dept['parent_name']))?$dept['parent_name']:'Top dept'; ?></td>
 								<td class="w-auto">
 									<form class="needs-validation d-inline" id="deleteDeptForm" action="" method="post" novalidate>

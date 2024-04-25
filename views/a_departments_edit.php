@@ -26,6 +26,7 @@
 							<select name="id_parent" id="id_parent" class="form-control sel2">
 								<?php if ($baseFunctions->rep['departments_list']): ?>
 									<?php foreach ($baseFunctions->rep['departments_list'] as $department): ?>
+										<?php if ($department['ID']==$baseFunctions->rep['dept']->ID) continue; ?>
 										<option value=""></option>
 										<option value="<?php echo $department['ID']; ?>" <?php echo ($department['ID']==$baseFunctions->rep['dept']->id_parent)?'selected':''; ?>><?php echo $department['name']; ?></option>
 									<?php endforeach ?>

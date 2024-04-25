@@ -1289,6 +1289,11 @@ class BaseFunctions
             }
         }
 
+        if ($id_parent==$id_department) {
+            $_SESSION['msg_warning'][] = "Nu se poate seta ca parinte al departamentului departamentul propriuzis.";
+            $id_parent = null;
+        }
+
 
         if (empty($name)||strlen($name)>100) {
             $_SESSION['msg_errors'][] = "&ldquo;Numele&rdquo; trebuie să nu fie gol și să conțină cel maxim 100 caractere.";

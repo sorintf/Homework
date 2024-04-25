@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 12:24 PM
+-- Generation Time: Apr 25, 2024 at 09:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -78,7 +78,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `edit_department_pub` (IN `in_id_dep
                 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_departments_all` ()   BEGIN
-                    SELECT d.*, p.name AS parent_name FROM departments d LEFT JOIN departments p ON p.ID=d.id_parent WHERE (d.features & 1) > 0;
+                    SELECT d.*, p.name AS parent_name FROM departments d LEFT JOIN departments p ON p.ID=d.id_parent;
                 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_departments_byparent` (IN `in_id_parent` INT)   BEGIN
@@ -161,7 +161,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_by_tve` (IN `in_tve` VARCH
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_department` (IN `in_name` VARCHAR(100), IN `in_id_parent` INT, OUT `out_id_department` INT)   BEGIN
-                    INSERT INTO `departments`(name, id_parent, features) VALUES (in_name, in_id_parent, 0 | 2);
+                    INSERT INTO `departments`(name, id_parent, features) VALUES (in_name, in_id_parent, 0 | 1);
                     SELECT last_insert_id() into out_id_department;
                 END$$
 
@@ -205,11 +205,11 @@ INSERT INTO `departments` (`ID`, `name`, `id_parent`, `features`, `created_time`
 (6, 'HR', NULL, 1, '2024-04-21 11:36:51', '2024-04-21 18:48:44'),
 (7, 'HR minic', 6, 1, '2024-04-21 11:38:20', '2024-04-21 18:48:44'),
 (8, 'Sales', NULL, 1, '2024-04-21 11:41:42', '2024-04-21 19:44:30'),
-(9, 'Prod', 13, 1, '2024-04-21 11:41:58', '2024-04-23 12:09:25'),
+(9, 'Prod', NULL, 1, '2024-04-21 11:41:58', '2024-04-25 10:43:12'),
 (10, 'People', 9, 1, '2024-04-21 11:42:08', '2024-04-23 12:10:02'),
 (11, 'Coffee', 10, 1, '2024-04-21 11:42:44', '2024-04-23 12:10:26'),
 (12, 'Acquisition', NULL, 1, '2024-04-21 11:43:13', '2024-04-23 12:18:08'),
-(13, 'Production', NULL, 1, '2024-04-21 18:47:46', '2024-04-21 19:44:10');
+(13, 'Production', NULL, 1, '2024-04-21 18:47:46', '2024-04-25 10:38:19');
 
 -- --------------------------------------------------------
 
@@ -277,7 +277,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `password`, `status`, `token_validare_email`, `token_rememberme`, `token_resetare_parola`, `trp_time`, `email`, `created_time`, `modified_time`, `delete_time`) VALUES
-(12, '$2y$10$jI8ROCHEzLfY6dFa6b8E3Oo1X3UH31ycjfSkHJuaOpTlQYWViHwvW', 3, '8f8f49b3dc886f5c64ffd647037220a98338d683', '2c9a847e500f767d38f8d3621d9f36ca5e16bca5e1076aa7698f91b9da08afb3', NULL, NULL, 0xd4c7b61dc3979b5ce66b9d81da282c5569652b8c4cba9d0973280129e58c66a7, '2024-04-20 20:04:32', '2024-04-23 09:25:58', NULL);
+(12, '$2y$10$jI8ROCHEzLfY6dFa6b8E3Oo1X3UH31ycjfSkHJuaOpTlQYWViHwvW', 3, '8f8f49b3dc886f5c64ffd647037220a98338d683', '0e2f938fd078e2c54362c3aabdd96245e1f2e0eed16b4c400da8199a4ce81f96', NULL, NULL, 0xd4c7b61dc3979b5ce66b9d81da282c5569652b8c4cba9d0973280129e58c66a7, '2024-04-20 20:04:32', '2024-04-25 10:19:11', NULL);
 
 --
 -- Indexes for dumped tables
@@ -320,7 +320,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `employees`
